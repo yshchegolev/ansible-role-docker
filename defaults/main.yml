@@ -1,0 +1,11 @@
+---
+docker_packages:
+  - git
+  - curl
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
+  - lsb-release
+  - python3-pip
+docker_repository: "https://download.docker.com/linux/ubuntu"
+docker_cache_time: 3600

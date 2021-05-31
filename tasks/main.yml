@@ -1,0 +1,31 @@
+---
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: "{{ docker_cache_time }}"
+  with_items: "{{ docker_packages }}"
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: "{{ docker_repository }}/gpg"
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb {{ docker_repository }} {{ ansible_distribution_release }} stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+    cache_valid_time: "{{ docker_cache_time }}"
+
+- name: Install docker-compose with pip
+  pip:
+    executable: pip3
+    name: docker-compose
+    state: present
